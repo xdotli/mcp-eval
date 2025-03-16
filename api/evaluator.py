@@ -16,6 +16,8 @@ Rate the conversation on a scale of 0-10, where:
 
 Provide your score as a single number between 0 and 10.
 
+Remember to only provide a single number between 0 and 10 and nothing else.
+
 Conversation trace:
 {trace}
 
@@ -61,9 +63,10 @@ async def evaluate_traces(
         List of scores (0-10) for each trace
     """
     scores = []
+    total_traces = len(traces)
     
     # Process traces in batches
-    for i in range(0, len(traces), batch_size):
+    for i in range(0, total_traces, batch_size):
         batch = traces[i:i + batch_size]
         batch_tasks = [
             evaluate_single_trace(trace, model, temperature)
@@ -71,6 +74,10 @@ async def evaluate_traces(
         ]
         batch_scores = await asyncio.gather(*batch_tasks)
         scores.extend(batch_scores)
+        
+        # Log progress
+        progress = min(100, (i + batch_size) / total_traces * 100)
+        print(f"Progress: {progress:.1f}% ({i + len(batch)}/{total_traces} traces processed)")
     
     return scores
 

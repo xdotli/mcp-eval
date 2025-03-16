@@ -28,7 +28,7 @@ MODEL_CONFIGS = {
 @app.post("/evaluate")
 async def evaluate_models():
     try:
-        # Read the traces from CSV file
+        print("\n=== Starting Model Evaluation ===")
         csv_path = os.path.join(os.path.dirname(__file__), 'enhanced_mcp_traces.csv')
         df = pd.read_csv(csv_path)
         traces = df['traces'].tolist()
@@ -36,8 +36,11 @@ async def evaluate_models():
         if not traces:
             raise HTTPException(status_code=400, detail="No traces found in the CSV file")
         
+        print(f"Loaded {len(traces)} traces for evaluation")
         results = {}
+        
         for model_key, config in MODEL_CONFIGS.items():
+            print(f"\nEvaluating {model_key} ({config['model']})...")
             # Evaluate traces for each model
             scores = await evaluate_traces(
                 traces=traces[:50],  # Using first 50 traces for faster evaluation
@@ -56,6 +59,10 @@ async def evaluate_models():
             # Calculate average accuracy (normalized to 100)
             accuracy = sum(scores) / total * 10
             
+            print(f"Results for {model_key}:")
+            print(f"  Accuracy: {accuracy:.2f}")
+            print(f"  Distribution: Poor={poor}, Acceptable={acceptable}, Good={good}, Excellent={excellent}")
+            
             results[model_key] = {
                 "accuracy": accuracy,
                 "performance": {
@@ -66,6 +73,7 @@ async def evaluate_models():
                 }
             }
         
+        print("\n=== Evaluation Complete ===")
         return results
     except FileNotFoundError:
         raise HTTPException(status_code=500, detail="CSV file not found")

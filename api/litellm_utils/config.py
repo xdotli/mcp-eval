@@ -33,7 +33,27 @@ MODEL_LIST = [{
         "tpm": 40_000,
         "rpm": 4500,
     }
-}, {   
+},
+{   
+    "model_name": "claude-3.7",
+    "litellm_params": {
+        "model": "claude-3-7-sonnet-latest",
+        "api_key": os.getenv("ANTHROPIC_API_KEY"),
+        "max_parallel_requests": 16,
+        "tpm": 40_000,
+        "rpm": 4500,
+    }
+},{   
+    "model_name": "claude-3.5",
+    "litellm_params": {
+        "model": "claude-3-5-sonnet-latest",
+        "api_key": os.getenv("ANTHROPIC_API_KEY"),
+        "max_parallel_requests": 16,
+        "tpm": 40_000,
+        "rpm": 4500,
+    }
+}
+,{   
     "model_name": "haiku",
     "litellm_params": {
         "model": "claude-3-5-haiku-20241022",

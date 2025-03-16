@@ -29,6 +29,7 @@ export function ModelComparison() {
   const [isEvaluating, setIsEvaluating] = useState(false)
   const [currentModel, setCurrentModel] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [evaluationLogs, setEvaluationLogs] = useState<string[]>([])
   const [modelData, setModelData] = useState<EvaluationResults>({
     accuracy: {
       "Model A": 0,
@@ -48,6 +49,7 @@ export function ModelComparison() {
     try {
       setIsEvaluating(true)
       setError(null)
+      setEvaluationLogs([])
       setCurrentModel("Starting evaluation...")
       
       const response = await fetch('http://localhost:8000/evaluate', {
@@ -73,6 +75,11 @@ export function ModelComparison() {
       Object.entries(results).forEach(([modelKey, data]: [string, any]) => {
         transformedData.accuracy[modelKey as ModelKey] = data.accuracy
         transformedData.performance[modelKey as ModelKey] = data.performance
+        
+        // Add evaluation log
+        setEvaluationLogs(prev => [...prev, 
+          `${MODEL_NAMES[modelKey as ModelKey]}: ${data.accuracy.toFixed(2)}% accuracy`
+        ])
       })
 
       setModelData(transformedData)
@@ -113,6 +120,20 @@ export function ModelComparison() {
             )}
           </Button>
         </div>
+
+        {isEvaluating && (
+          <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+            <h3 className="font-semibold mb-2">Evaluation Progress:</h3>
+            <div className="space-y-1 text-sm text-gray-600">
+              {evaluationLogs.map((log, index) => (
+                <div key={index}>{log}</div>
+              ))}
+              {currentModel && (
+                <div className="text-blue-600">{currentModel}</div>
+              )}
+            </div>
+          </div>
+        )}
 
         {error && (
           <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative" role="alert">
