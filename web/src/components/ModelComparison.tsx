@@ -8,10 +8,10 @@ import { Button } from "@/components/ui/button"
 type ModelKey = "Model A" | "Model B" | "Model C" | "Model D"
 
 const MODEL_NAMES: Record<ModelKey, string> = {
-  "Model A": "GPT-4o-Mini",
+  "Model A": "Llama-3.3-70B-Fine-Tuned",
   "Model B": "GPT-4o",
-  "Model C": "Claude 3.5",
-  "Model D": "Claude 3.7"
+  "Model C": "Claude 3.7",
+  "Model D": "Llama-3.3-70B-Base"
 }
 
 type EvaluationResults = {

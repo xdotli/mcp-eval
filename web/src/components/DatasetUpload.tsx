@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
+import { CsvPreview } from "@/components/CsvPreview"
 
 export function DatasetUpload() {
   const [file, setFile] = useState<File | null>(null)
@@ -78,6 +79,7 @@ export function DatasetUpload() {
           </div>
         )}
 
+        <CsvPreview file={file} />
       </CardContent>
     </Card>
   )

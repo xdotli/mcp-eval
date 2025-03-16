@@ -19,10 +19,10 @@ app.add_middleware(
 )
 
 MODEL_CONFIGS = {
-    "Model A": {"model": "gpt-4o-mini", "temperature": 0.3},
-    "Model B": {"model": "gpt-4o", "temperature": 0.3},
+    "Model A": {"model": "Llama-3.3-8B-Fine-Tuned", "temperature": 0.3},
+    "Model B": {"model": "gpt-4o-", "temperature": 0.3},
     "Model C": {"model": "claude-3.5", "temperature": 0.3},
-    "Model D": {"model": "claude-3.7", "temperature": 0.3},
+    "Model D": {"model": "Llama-3.3-70B-Fine-Base", "temperature": 0.3},
 }
 
 @app.post("/evaluate")
