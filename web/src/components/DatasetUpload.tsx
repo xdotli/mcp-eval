@@ -62,7 +62,8 @@ export function DatasetUpload() {
           <Button
             onClick={startTraining}
             disabled={!file || isTraining}
-            className="w-full"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+            variant="default"
           >
             {isTraining ? "Training in Progress..." : "Start Fine-tuning"}
           </Button>
@@ -76,6 +77,7 @@ export function DatasetUpload() {
             </p>
           </div>
         )}
+
       </CardContent>
     </Card>
   )

@@ -28,6 +28,11 @@ export function ProjectIntro() {
               </a>
             </li>
             <li>
+              <a href="https://benchflow.ai/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">
+                BenchFlow - Customized benchmark generation and running
+              </a>
+            </li>
+            <li>
               <a href="https://modelcontextprotocol.io/" className="text-blue-600 hover:underline">
                 Model Context Protocol
               </a>
