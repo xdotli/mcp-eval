@@ -11,17 +11,25 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { Skeleton } from "@/components/ui/skeleton"
+import { AlertCircle } from "lucide-react"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 type CsvData = {
   headers: string[];
   rows: string[][];
 }
 
+const MAX_CELL_LENGTH = 100
+const DEFAULT_COLUMN_WIDTH = 150
+const EXPANDED_COLUMN_WIDTH = 300
+
 export function CsvPreview({ file }: { file: File | null }) {
   const [data, setData] = useState<CsvData | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [expandedColumns, setExpandedColumns] = useState<Set<number>>(new Set())
   
   const rowsPerPage = 10
   
@@ -39,13 +47,52 @@ export function CsvPreview({ file }: { file: File | null }) {
         throw new Error('CSV file is empty')
       }
       
+      const parseCSVLine = (line: string): string[] => {
+        const result = []
+        let cell = ''
+        let isQuoted = false
+        let i = 0
+        
+        while (i < line.length) {
+          const char = line[i]
+          
+          if (char === '"') {
+            if (isQuoted && i + 1 < line.length && line[i + 1] === '"') {
+              // Handle escaped quotes
+              cell += '"'
+              i++
+            } else {
+              // Toggle quoted state
+              isQuoted = !isQuoted
+            }
+          } else if (char === ',' && !isQuoted) {
+            // End of cell
+            result.push(cell.trim())
+            cell = ''
+          } else {
+            cell += char
+          }
+          i++
+        }
+        
+        // Add the last cell
+        result.push(cell.trim())
+        return result
+      }
+      
       // Parse headers (first line)
-      const headers = lines[0].split(',').map(header => header.trim())
+      const headers = parseCSVLine(lines[0])
       
       // Parse rows (remaining lines)
       const rows = lines.slice(1)
-        .filter(line => line.trim() !== '') // Remove empty lines
-        .map(line => line.split(',').map(cell => cell.trim()))
+        .filter(line => line.trim() !== '')
+        .map(line => parseCSVLine(line))
+      
+      // Validate row lengths match header length
+      const invalidRows = rows.filter(row => row.length !== headers.length)
+      if (invalidRows.length > 0) {
+        throw new Error('Some rows have an incorrect number of columns')
+      }
       
       setData({ headers, rows })
     } catch (err) {
@@ -56,47 +103,80 @@ export function CsvPreview({ file }: { file: File | null }) {
     }
   }
   
-  // Load data when file changes
   useEffect(() => {
     if (file) {
       loadCsvData()
+      setExpandedColumns(new Set())
+      setCurrentPage(1)
     } else {
       setData(null)
       setCurrentPage(1)
     }
   }, [file])
-  
-  if (!file) {
-    return null
+
+  const toggleColumnExpand = (columnIndex: number) => {
+    setExpandedColumns(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(columnIndex)) {
+        newSet.delete(columnIndex)
+      } else {
+        newSet.add(columnIndex)
+      }
+      return newSet
+    })
   }
-  
+
+  const formatCellContent = (content: string) => {
+    if (!content) return '-'
+    if (content.length <= MAX_CELL_LENGTH) return content
+    return `${content.slice(0, MAX_CELL_LENGTH)}...`
+  }
+
+  if (!file) return null
+
   const totalPages = data ? Math.ceil(data.rows.length / rowsPerPage) : 0
   const startIndex = (currentPage - 1) * rowsPerPage
   const currentRows = data?.rows.slice(startIndex, startIndex + rowsPerPage) || []
   
   return (
-    <Card className="w-full mt-4">
+    <Card className="w-full max-w-screen-xl mx-auto mt-4">
       <CardHeader>
         <CardTitle className="text-xl font-bold">Data Preview: {file.name}</CardTitle>
       </CardHeader>
       <CardContent>
         {isLoading ? (
-          <div className="flex items-center justify-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+          <div className="space-y-3">
+            <Skeleton className="h-8 w-full" />
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Skeleton key={i} className="h-12 w-full" />
+            ))}
           </div>
         ) : error ? (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative">
-            <strong className="font-bold">Error: </strong>
-            <span className="block sm:inline">{error}</span>
-          </div>
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
         ) : data ? (
           <div className="space-y-4">
-            <div className="border rounded-lg">
+            <div className="border rounded-lg overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
                     {data.headers.map((header, index) => (
-                      <TableHead key={index}>{header}</TableHead>
+                      <TableHead
+                        key={index}
+                        className="cursor-pointer hover:bg-muted/50 transition-colors"
+                        style={{
+                          minWidth: expandedColumns.has(index) ? EXPANDED_COLUMN_WIDTH : DEFAULT_COLUMN_WIDTH,
+                          maxWidth: expandedColumns.has(index) ? 'none' : DEFAULT_COLUMN_WIDTH
+                        }}
+                        onClick={() => toggleColumnExpand(index)}
+                      >
+                        <div className="flex items-center justify-between">
+                          <span>{header || 'Unnamed Column'}</span>
+                        </div>
+                      </TableHead>
                     ))}
                   </TableRow>
                 </TableHeader>
@@ -104,7 +184,17 @@ export function CsvPreview({ file }: { file: File | null }) {
                   {currentRows.map((row, rowIndex) => (
                     <TableRow key={rowIndex}>
                       {row.map((cell, cellIndex) => (
-                        <TableCell key={cellIndex}>{cell}</TableCell>
+                        <TableCell
+                          key={cellIndex}
+                          style={{
+                            minWidth: expandedColumns.has(cellIndex) ? EXPANDED_COLUMN_WIDTH : DEFAULT_COLUMN_WIDTH,
+                            maxWidth: expandedColumns.has(cellIndex) ? 'none' : DEFAULT_COLUMN_WIDTH
+                          }}
+                          className={expandedColumns.has(cellIndex) ? 'whitespace-normal break-words' : 'truncate'}
+                          title={cell}
+                        >
+                          {formatCellContent(cell)}
+                        </TableCell>
                       ))}
                     </TableRow>
                   ))}
@@ -114,8 +204,8 @@ export function CsvPreview({ file }: { file: File | null }) {
             
             {totalPages > 1 && (
               <div className="flex items-center justify-between">
-                <div className="text-sm text-gray-600">
-                  Page {currentPage} of {totalPages}
+                <div className="text-sm text-muted-foreground">
+                  Showing rows {startIndex + 1}-{Math.min(startIndex + rowsPerPage, data.rows.length)} of {data.rows.length}
                 </div>
                 <div className="space-x-2">
                   <Button

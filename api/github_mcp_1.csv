@@ -1,0 +1,420 @@
+id,traces,expected_output,score
+1,"User: recent prs in kubernetes
+MCP: I'll help you find recent pull requests in the Kubernetes project. Let me search for that information.
+Running search_issues from @smithery-ai-github (local)
+{
+  ""q"": ""repo:kubernetes/kubernetes is:pr sort:created-desc"",
+  ""sort"": ""created"",
+  ""per_page"": 10
+}","List of recent pull requests in the Kubernetes repository with details like PR number, title, state, and creation date.",1.0
+2,"User: find react hooks examples
+MCP: I'll search for React hooks code examples on GitHub for you.
+Running search_code from @smithery-ai-github (local)
+{
+  ""q"": ""useState useEffect language:javascript language:typescript"",
+  ""sort"": ""stars"",
+  ""per_page"": 5
+}","Code examples of React hooks from popular repositories, including file names, paths, and repository information.",1.0
+3,"User: create a new repo called my-project
+MCP: I'll help you create a new GitHub repository called ""my-project"".
+Running create_repository from @smithery-ai-github (local)
+{
+  ""name"": ""my-project"",
+  ""description"": """",
+  ""private"": false,
+  ""auto_init"": true
+}","Confirmation of repository creation with details including repository name, URL, and creation timestamp.",1.0
+4,"User: show open issues in tensorflow
+MCP: I'll find open issues in the TensorFlow repository for you.
+Running list_issues from @smithery-ai-github (local)
+{
+  ""owner"": ""tensorflow"",
+  ""repo"": ""tensorflow"",
+  ""state"": ""open"",
+  ""per_page"": 5
+}","List of open issues in the TensorFlow repository with details like issue number, title, state, and creation date.",1.0
+5,"User: show me the readme from pytorch
+MCP: I'll retrieve the README file from the PyTorch repository for you.
+Running get_file_contents from @smithery-ai-github (local)
+{
+  ""owner"": ""pytorch"",
+  ""repo"": ""pytorch"",
+  ""path"": ""README.md""
+}","Content of the README.md file from the PyTorch repository, including installation instructions and resources.",1.0
+6,"User: create issue in my-project about login bug
+MCP: I'll help you create a new issue about a login bug in your my-project repository.
+Running create_issue from @smithery-ai-github (local)
+{
+  ""owner"": ""your-username"",
+  ""repo"": ""my-project"",
+  ""title"": ""Login functionality not working properly"",
+  ""body"": ""Users are unable to log in using correct credentials. The system shows an error message even when the username and password are correct.""
+}","Confirmation of issue creation with details including issue number, title, URL, and creation timestamp.",1.0
+7,"User: find github users who work on llama
+MCP: I'll search for GitHub users who are associated with ""llama"" projects.
+Running search_users from @smithery-ai-github (local)
+{
+  ""q"": ""llama in:name in:bio in:email"",
+  ""sort"": ""followers"",
+  ""per_page"": 5
+}","List of GitHub users associated with llama projects, including their usernames, profile URLs, and bio information.",1.0
+8,"User: create pr from feature-branch to main in my-project
+MCP: I'll create a pull request from your feature-branch to the main branch in your my-project repository.
+Running create_pull_request from @smithery-ai-github (local)
+{
+  ""owner"": ""your-username"",
+  ""repo"": ""my-project"",
+  ""title"": ""Feature implementation"",
+  ""body"": ""This PR implements the new feature as discussed in issue #1"",
+  ""head"": ""feature-branch"",
+  ""base"": ""main""
+}","Confirmation of pull request creation with details including PR number, title, URL, and branch information.",1.0
+9,"User: update README in my-project to add installation instructions
+MCP: I'll help you update the README file in your my-project repository to add installation instructions.
+Running get_file_contents from @smithery-ai-github (local)
+{
+  ""owner"": ""your-username"",
+  ""repo"": ""my-project"",
+  ""path"": ""README.md""
+}
+Running create_or_update_file from @smithery-ai-github (local)
+{
+  ""owner"": ""your-username"",
+  ""repo"": ""my-project"",
+  ""path"": ""README.md"",
+  ""message"": ""Add installation instructions"",
+  ""content"": ""# My Project\n\nA simple project for demonstration purposes.\n\n## Installation\n\n```bash\nnpm install\nnpm start\n```\n\n## Usage\n\nSee documentation for details."",
+  ""sha"": ""abc123def456""
+}","Confirmation of file update with details including file path, new SHA, and URL to the updated file.",1.0
+10,"User: fork tensorflow/models to my account
+MCP: I'll fork the TensorFlow models repository to your GitHub account.
+Running fork_repository from @smithery-ai-github (local)
+{
+  ""owner"": ""tensorflow"",
+  ""repo"": ""models""
+}","Confirmation of repository forking with details including the new repository name, URL, and creation timestamp.",1.0
+11,"User: find memory leak issues in pytorch
+MCP: I'll search for issues related to memory leaks in the PyTorch repository.
+Running search_issues from @smithery-ai-github (local)
+{
+  ""q"": ""repo:pytorch/pytorch memory leak in:title in:body is:issue is:open"",
+  ""sort"": ""created"",
+  ""per_page"": 5
+}","List of open issues related to memory leaks in the PyTorch repository, including issue numbers, titles, and URLs.",1.0
+12,"User: create branch fix-login-bug in my-project
+MCP: I'll create a new branch called ""fix-login-bug"" in your my-project repository.
+Running create_branch from @smithery-ai-github (local)
+{
+  ""owner"": ""your-username"",
+  ""repo"": ""my-project"",
+  ""branch"": ""fix-login-bug"",
+  ""sha"": ""main""
+}","Confirmation of branch creation with details including branch name and reference information.",1.0
+13,"User: show recent commits in react
+MCP: I'll retrieve the recent commit history for the React repository.
+Running list_commits from @smithery-ai-github (local)
+{
+  ""owner"": ""facebook"",
+  ""repo"": ""react"",
+  ""per_page"": 5
+}","List of recent commits in the React repository, including commit SHAs, messages, authors, and timestamps.",1.0
+14,"User: add comment to issue #1 in my-project: ""I've reproduced the bug on Chrome and Firefox""
+MCP: I'll add your comment to issue #1 in your my-project repository.
+Running add_issue_comment from @smithery-ai-github (local)
+{
+  ""owner"": ""your-username"",
+  ""repo"": ""my-project"",
+  ""issue_number"": 1,
+  ""body"": ""I've reproduced the bug on Chrome and Firefox""
+}","Confirmation of comment addition with details including comment ID, URL, and creation timestamp.",1.0
+15,"User: update issue #1 in my-project to add label ""bug"" and assign to me
+MCP: I'll update issue #1 in your my-project repository to add the ""bug"" label and assign it to you.
+Running update_issue from @smithery-ai-github (local)
+{
+  ""owner"": ""your-username"",
+  ""repo"": ""my-project"",
+  ""issue_number"": 1,
+  ""labels"": [""bug""],
+  ""assignees"": [""your-username""]
+}","Confirmation of issue update with details including updated labels and assignees.",1.0
+16,"User: push new files to my-project: index.js and styles.css
+MCP: I'll help you push new index.js and styles.css files to your my-project repository.
+Running push_files from @smithery-ai-github (local)
+{
+  ""owner"": ""your-username"",
+  ""repo"": ""my-project"",
+  ""branch"": ""main"",
+  ""commit_message"": ""Add index.js and styles.css"",
+  ""files"": [
+    {
+      ""path"": ""index.js"",
+      ""content"": ""console.log('Hello, world!');\n\nfunction init() {\n  // Initialize application\n}\n\ninit();""
+    },
+    {
+      ""path"": ""styles.css"",
+      ""content"": ""body {\n  font-family: Arial, sans-serif;\n  margin: 0;\n  padding: 20px;\n}\n\n.container {\n  max-width: 1200px;\n  margin: 0 auto;\n}""
+    }
+  ]
+}","Confirmation of file addition with details including commit SHA, URL, and file statuses.",1.0
+17,"User: find security vulnerabilities in express
+MCP: I'll search for security vulnerability issues in the Express.js repository.
+Running search_issues from @smithery-ai-github (local)
+{
+  ""q"": ""repo:expressjs/express security vulnerability in:title in:body is:issue"",
+  ""sort"": ""created"",
+  ""per_page"": 5
+}","List of security vulnerability issues in the Express.js repository, including issue numbers, titles, and states.",1.0
+18,"User: show details of issue #98765 in pytorch
+MCP: I'll retrieve the details of issue #98765 in the PyTorch repository.
+Running get_issue from @smithery-ai-github (local)
+{
+  ""owner"": ""pytorch"",
+  ""repo"": ""pytorch"",
+  ""issue_number"": 98765
+}","Detailed information about issue #98765 in the PyTorch repository, including title, body, labels, and comments.",1.0
+19,"User: find documentation about transformers in huggingface
+MCP: I'll search for documentation about transformers in the Hugging Face repositories.
+Running search_code from @smithery-ai-github (local)
+{
+  ""q"": ""transformers documentation repo:huggingface/transformers path:docs"",
+  ""sort"": ""indexed"",
+  ""per_page"": 5
+}","List of documentation files about transformers in the Hugging Face repositories, including file names and paths.",1.0
+20,"User: find top machine learning repositories
+MCP: I'll search for the most popular machine learning repositories on GitHub.
+Running search_repositories from @smithery-ai-github (local)
+{
+  ""q"": ""topic:machine-learning"",
+  ""sort"": ""stars"",
+  ""per_page"": 5
+}","List of popular machine learning repositories sorted by star count, including repository names, descriptions, and star counts.",1.0
+21,"User: find jupyter notebooks about GANs
+MCP: I'll search for Jupyter notebooks about Generative Adversarial Networks (GANs).
+Running search_code from @smithery-ai-github (local)
+{
+  ""q"": ""GAN generative adversarial network filename:*.ipynb language:jupyter-notebook"",
+  ""sort"": ""stars"",
+  ""per_page"": 5
+}","List of Jupyter notebooks about GANs, including file names, paths, and repository information.",1.0
+22,"User: show recent issues in vscode
+MCP: I'll find recent issues in the Visual Studio Code repository.
+Running search_issues from @smithery-ai-github (local)
+{
+  ""q"": ""repo:microsoft/vscode is:issue sort:created-desc"",
+  ""sort"": ""created"",
+  ""per_page"": 5
+}","List of recent issues in the Visual Studio Code repository, including issue numbers, titles, and creation dates.",1.0
+23,"User: who are the top contributors to numpy
+MCP: I'll search for the top contributors to the NumPy repository.
+Running search_users from @smithery-ai-github (local)
+{
+  ""q"": ""repo:numpy/numpy"",
+  ""sort"": ""contributions"",
+  ""per_page"": 5
+}","List of top contributors to the NumPy repository, sorted by contribution count, including usernames and contribution counts.",1.0
+24,"User: find examples of useContext in react repositories
+MCP: I'll search for examples of React's useContext hook in GitHub repositories.
+Running search_code from @smithery-ai-github (local)
+{
+  ""q"": ""useContext language:javascript language:typescript"",
+  ""sort"": ""stars"",
+  ""per_page"": 5
+}","List of code examples using React's useContext hook, including file names, paths, and repository information.",1.0
+25,"User: find beginner-friendly open source projects
+MCP: I'll search for beginner-friendly open source projects that are looking for contributors.
+Running search_repositories from @smithery-ai-github (local)
+{
+  ""q"": ""good-first-issue help-wanted is:open"",
+  ""sort"": ""updated"",
+  ""per_page"": 5
+}","List of beginner-friendly open source projects with good-first-issues, including repository names, descriptions, and star counts.",1.0
+26,"User: find documentation for github actions workflows
+MCP: I'll search for documentation about GitHub Actions workflows.
+Running search_code from @smithery-ai-github (local)
+{
+  ""q"": ""github actions workflow documentation repo:github/docs path:actions"",
+  ""sort"": ""indexed"",
+  ""per_page"": 5
+}","List of documentation files about GitHub Actions workflows, including file names and paths.",1.0
+27,"User: compare stars between react and vue
+MCP: I'll compare the star counts between the React and Vue repositories.
+Running search_repositories from @smithery-ai-github (local)
+{
+  ""q"": ""repo:facebook/react repo:vuejs/vue"",
+  ""sort"": ""stars"",
+  ""per_page"": 2
+}","Comparison of star counts between React and Vue repositories, showing React with 210,000 stars and Vue with 205,000 stars.",1.0
+28,"User: find trending repositories this month
+MCP: I'll search for trending repositories on GitHub this month.
+Running search_repositories from @smithery-ai-github (local)
+{
+  ""q"": ""created:>2025-02-16"",
+  ""sort"": ""stars"",
+  ""per_page"": 5
+}","List of trending repositories created in the last month, sorted by star count, including repository names and descriptions.",1.0
+29,"User: show me typescript projects with good documentation
+MCP: I'll find TypeScript projects known for good documentation.
+Running search_repositories from @smithery-ai-github (local)
+{
+  ""q"": ""language:typescript topic:documentation"",
+  ""sort"": ""stars"",
+  ""per_page"": 5
+}","List of TypeScript projects with good documentation, sorted by star count, including repository names and descriptions.",1.0
+30,"User: find repositories by language
+MCP: I'll search for repositories by programming language.
+Running search_repositories from @smithery-ai-github (local)
+{
+  ""q"": ""language:rust stars:>1000"",
+  ""sort"": ""stars"",
+  ""per_page"": 5
+}","List of popular Rust repositories with more than 1000 stars, sorted by star count, including repository names and descriptions.",1.0
+31,"User: find commit that introduced bug in tensorflow
+MCP: I'll search for the commit that might have introduced a bug in TensorFlow.
+Running search_commits from @smithery-ai-github (local)
+{
+  ""q"": ""repo:tensorflow/tensorflow bug fix"",
+  ""sort"": ""committer-date"",
+  ""per_page"": 5
+}","List of commits in TensorFlow related to bug fixes, including commit SHAs, messages, and dates.",1.0
+32,"User: check license of react
+MCP: I'll check the license information for the React repository.
+Running get_file_contents from @smithery-ai-github (local)
+{
+  ""owner"": ""facebook"",
+  ""repo"": ""react"",
+  ""path"": ""LICENSE""
+}","Content of the LICENSE file from the React repository, showing it uses the MIT License.",1.0
+33,"User: count contributors in django
+MCP: I'll count the number of contributors to the Django repository.
+Running search_users from @smithery-ai-github (local)
+{
+  ""q"": ""repo:django/django"",
+  ""per_page"": 1
+}","Total count of contributors to the Django repository, showing 2345 contributors.",1.0
+34,"User: show latest release of node.js
+MCP: I'll find information about the latest release of Node.js.
+Running search_repositories from @smithery-ai-github (local)
+{
+  ""q"": ""repo:nodejs/node"",
+  ""per_page"": 1
+}","Information about the latest release of Node.js, including version number and release date.",1.0
+35,"User: what's the size of kubernetes repo
+MCP: I'll check the size of the Kubernetes repository.
+Running search_repositories from @smithery-ai-github (local)
+{
+  ""q"": ""repo:kubernetes/kubernetes"",
+  ""per_page"": 1
+}","Information about the size of the Kubernetes repository, showing 450MB size and 65,000 commits.",1.0
+36,"User: compare activity between angular and react
+MCP: I'll compare the recent activity between the Angular and React repositories.
+Running search_repositories from @smithery-ai-github (local)
+{
+  ""q"": ""repo:angular/angular repo:facebook/react"",
+  ""sort"": ""updated"",
+  ""per_page"": 2
+}","Comparison of recent activity between Angular and React repositories, showing commit counts for the last week.",1.0
+37,"User: find dependencies of express
+MCP: I'll search for the dependencies used by the Express.js framework.
+Running get_file_contents from @smithery-ai-github (local)
+{
+  ""owner"": ""expressjs"",
+  ""repo"": ""express"",
+  ""path"": ""package.json""
+}","List of dependencies used by the Express.js framework, extracted from its package.json file.",1.0
+38,"User: show notable forks of tensorflow
+MCP: I'll find notable forks of the TensorFlow repository.
+Running search_repositories from @smithery-ai-github (local)
+{
+  ""q"": ""fork:true tensorflow"",
+  ""sort"": ""stars"",
+  ""per_page"": 5
+}","List of notable forks of the TensorFlow repository, sorted by star count, including repository names and descriptions.",1.0
+39,"User: what topics are associated with react
+MCP: I'll check what topics are associated with the React repository.
+Running search_repositories from @smithery-ai-github (local)
+{
+  ""q"": ""repo:facebook/react"",
+  ""per_page"": 1
+}","List of topics associated with the React repository, including javascript, react, library, ui, and frontend.",1.0
+40,"User: show github actions workflows in next.js
+MCP: I'll search for GitHub Actions workflow files in the Next.js repository.
+Running search_code from @smithery-ai-github (local)
+{
+  ""q"": ""path:.github/workflows repo:vercel/next.js"",
+  ""per_page"": 5
+}","List of GitHub Actions workflow files in the Next.js repository, including file names and paths.",1.0
+41,"User: show discussions about performance in svelte
+MCP: I'll search for performance-related discussions in the Svelte repository.
+Running search_issues from @smithery-ai-github (local)
+{
+  ""q"": ""repo:sveltejs/svelte is:discussion performance"",
+  ""sort"": ""comments"",
+  ""per_page"": 5
+}","List of performance-related discussions in the Svelte repository, sorted by comment count, including discussion titles and URLs.",1.0
+42,"User: what labels does rust use for issues
+MCP: I'll check what labels are used in the Rust repository for issues.
+Running search_issues from @smithery-ai-github (local)
+{
+  ""q"": ""repo:rust-lang/rust is:issue"",
+  ""per_page"": 5
+}","List of labels used in the Rust repository for issues, including label names and colors.",1.0
+43,"User: find issue templates in kubernetes
+MCP: I'll search for issue templates in the Kubernetes repository.
+Running search_code from @smithery-ai-github (local)
+{
+  ""q"": ""path:.github/ISSUE_TEMPLATE repo:kubernetes/kubernetes"",
+  ""per_page"": 5
+}","List of issue templates in the Kubernetes repository, including file names and paths.",1.0
+44,"User: show commit activity in django
+MCP: I'll check the commit activity statistics for the Django repository.
+Running list_commits from @smithery-ai-github (local)
+{
+  ""owner"": ""django"",
+  ""repo"": ""django"",
+  ""per_page"": 5
+}","List of recent commits in the Django repository, including commit messages, authors, and timestamps.",1.0
+45,"User: list branches in fastapi
+MCP: I'll retrieve the list of branches in the FastAPI repository.
+Running create_branch from @smithery-ai-github (local)
+{
+  ""owner"": ""tiangolo"",
+  ""repo"": ""fastapi"",
+  ""branch"": ""master""
+}","Information about branches in the FastAPI repository, including the main branch and its protection rules.",1.0
+46,"User: show reviews on pull request #5432 in numpy
+MCP: I'll fetch the reviews for pull request #5432 in the NumPy repository.
+Running search_issues from @smithery-ai-github (local)
+{
+  ""q"": ""repo:numpy/numpy type:pr #5432"",
+  ""per_page"": 1
+}","Details of reviews on pull request #5432 in the NumPy repository, including reviewer names, review states, and comments.",1.0
+47,"User: show wiki pages in electron
+MCP: I'll search for wiki pages in the Electron repository.
+Running search_code from @smithery-ai-github (local)
+{
+  ""q"": ""repo:electron/electron path:wiki"",
+  ""per_page"": 5
+}","List of wiki pages in the Electron repository, including file names and paths.",1.0
+48,"User: show security policy of postgresql
+MCP: I'll retrieve the security policy for the PostgreSQL repository.
+Running get_file_contents from @smithery-ai-github (local)
+{
+  ""owner"": ""postgres"",
+  ""repo"": ""postgres"",
+  ""path"": ""SECURITY.md""
+}","Content of the SECURITY.md file from the PostgreSQL repository, including supported versions and vulnerability reporting process.",1.0
+49,"User: check deployment status of vercel/next.js
+MCP: I'll check the deployment status of the Next.js repository.
+Running search_repositories from @smithery-ai-github (local)
+{
+  ""q"": ""repo:vercel/next.js"",
+  ""per_page"": 1
+}","Information about the deployment status of the Next.js repository, including environment and state.",1.0
+50,"User: find repositories with comprehensive documentation
+MCP: I'll search for repositories known for their comprehensive documentation.
+Running search_repositories from @smithery-ai-github (local)
+{
+  ""q"": ""topic:documentation stars:>1000"",
+  ""sort"": ""stars"",
+  ""per_page"": 5
+}","List of repositories with comprehensive documentation, sorted by star count, including repository names and descriptions.",1.0
